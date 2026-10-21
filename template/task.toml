@@ -1,0 +1,41 @@
+# Every value below is checked when you upload. `taskkit.py new` fills the
+# {{...}} fields and the budget; `taskkit.py check` re-checks after any edit.
+version = "1.0"
+
+[task]
+# The prefix stays as is; after the slash goes exactly the task name you type
+# on the upload form.
+name = "afterquery/{{TASK_NAME}}"
+description = "{{DESCRIPTION}}"
+
+[metadata]
+# implementation | optimization | research, lowercase. Must match the class you
+# pick on the upload form (the "performance" class is written "optimization").
+paradigm = "{{PARADIGM}}"
+# cpu | gpu. Must match [environment] gpus.
+compute = "cpu"
+# The languages the agent writes code in.
+languages = ["{{LANGUAGE}}"]
+category = "{{CATEGORY}}"
+difficulty = "frontier"
+tags = ["{{TAG}}"]
+# Optional: what your reference solution reliably scores (implementation: 1.0).
+# oracle_reward_threshold = 0.9
+
+[agent]
+# One budget tier: 7200 | 14400 | 28800 | 72000 (2, 4, 8, 20 hours). The same
+# number goes in [environment.env] TASK_BUDGET_SECS and in instruction.md.
+timeout_sec = 28800
+
+[verifier]
+# Must cover your grader's typical run with headroom (cap 86400).
+timeout_sec = 3600
+
+[environment]
+allow_internet = false
+cpus = 4
+memory_mb = 16384
+gpus = 0
+
+[environment.env]
+TASK_BUDGET_SECS = "28800"
